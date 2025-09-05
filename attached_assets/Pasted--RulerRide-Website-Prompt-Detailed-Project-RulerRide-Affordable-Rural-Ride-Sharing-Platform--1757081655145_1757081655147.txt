@@ -1,0 +1,85 @@
+🎯 RulerRide Website Prompt (Detailed)
+
+Project: RulerRide – Affordable Rural Ride-Sharing Platform
+
+Clear Idea / Goal:
+Design a modern, clean, and user-friendly website for RulerRide, a ride-sharing service focused on rural and semi-urban areas. The website should emphasize affordability, comfort, and safety while being easy to use for first-time internet users.
+
+Core Requirements:
+
+Landing Page / Homepage
+
+Hero section with catchy tagline: “Affordable. Comfortable. Safe. Rides for Everyone.”
+
+Background should include smooth animated illustrations/animations related to transportation (cars, bikes, rural landscape, etc.).
+
+Prominent “Book a Ride” button in the center of the page.
+
+Simple navigation bar: Home | About | Services | Book Ride | Contact.
+
+Animations & Visuals
+
+Animated graphics of vehicles (car, bike, auto) moving across rural roads.
+
+Illustrations showing villagers happily booking rides.
+
+Light, friendly colors (mix of green, yellow, blue — to reflect rural vibrancy).
+
+Ride Booking Feature (on website)
+
+Booking form with input fields:
+
+Pickup Location
+
+Drop Location
+
+Select Vehicle Type (Bike, Auto, Car)
+
+Date/Time
+
+Payment Option (Cash / Digital)
+
+“Book Now” button.
+
+Show real-time confirmation message after booking.
+
+About Section
+
+Short explanation: RulerRide provides affordable, comfortable, and safe rides designed for rural communities.
+
+Features Section (icons + text)
+
+Affordable Pricing 💰
+
+Comfortable Travel 🪑
+
+Safety First 🛡️
+
+Local Language Support 🌐
+
+Verified Drivers ✅
+
+Footer Section
+
+Contact info, social media links, download app buttons (Play Store, App Store).
+
+Design Style:
+
+Clean, minimal, yet attractive.
+
+Rural-friendly colors (green, orange, earthy tones).
+
+Rounded cards, soft shadows, modern typography.
+
+Should feel trustworthy and safe.
+
+Tech/Frontend Notes (for AI):
+
+Responsive design (works on mobile + desktop).
+
+Include animated illustrations/animations.
+
+Simple booking flow built into homepage.
+
+⚡ Ready-to-use Prompt Example (for your AI tool):
+"Design a responsive website for RulerRide, an affordable rural ride-sharing platform. The homepage should feature animated illustrations of vehicles moving across rural landscapes, a prominent “Book a Ride” button, and a clean navigation bar. Include a ride booking form (pickup, drop, vehicle type, time, payment option). Use vibrant, rural-friendly colors (green, orange, blue) and emphasize affordability, comfort, and safety. Add sections for About, Features, and Footer with app download links. Keep the style modern, clean, and user-friendly with smooth animations."

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Car, Users, MapPin, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const achievements = [
@@ -21,8 +21,8 @@ export default function AboutSection() {
             viewport={{ once: true }}
           >
             <img 
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-              alt="Rural village community" 
+              src="/rulerride.jpg" 
+              alt="RulerRide connecting rural communities - illustration showing a green car with driver and passenger in a rural landscape with villages" 
               className="w-full h-96 object-cover rounded-2xl shadow-xl" 
             />
           </motion.div>

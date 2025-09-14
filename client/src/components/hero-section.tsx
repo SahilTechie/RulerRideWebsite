@@ -1,4 +1,4 @@
-import { Car, Play } from "lucide-react";
+import { Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -77,7 +77,7 @@ export default function HeroSection() {
           
           {/* Primary CTA */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+            className="flex justify-center items-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
@@ -85,20 +85,11 @@ export default function HeroSection() {
             <Button
               onClick={scrollToBooking}
               size="lg"
-              className="bg-primary text-primary-foreground px-8 py-4 text-lg font-semibold hover:bg-primary/90 transform hover:scale-105 transition-all shadow-lg"
+              className="bg-primary text-primary-foreground px-12 py-5 text-xl font-semibold hover:bg-primary/90 transform hover:scale-105 transition-all shadow-xl"
               data-testid="button-book-ride-hero"
             >
-              <Car className="mr-2 h-5 w-5" />
+              <Car className="mr-3 h-6 w-6" />
               Book a Ride Now
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-primary text-primary px-8 py-4 text-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-all"
-              data-testid="button-how-it-works"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              How It Works
             </Button>
           </motion.div>
 

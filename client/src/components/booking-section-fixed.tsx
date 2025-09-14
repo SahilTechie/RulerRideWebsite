@@ -63,7 +63,8 @@ export default function BookingSection() {
 
   const createBookingMutation = useMutation({
     mutationFn: async (data: InsertBooking) => {
-      return await apiRequest("POST", "/api/bookings", data);
+      const response = await apiRequest("POST", "/api/bookings", data);
+      return response.json();
     },
     onSuccess: (booking: Booking) => {
       // Start 10-second loading animation
@@ -142,12 +143,12 @@ export default function BookingSection() {
           <p className="text-xl text-muted-foreground">Simple, fast, and reliable booking in just a few clicks</p>
         </motion.div>
 
-        <div className="flex flex-col items-center">
-          {/* Centered Booking Form */}
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
+          {/* Booking Form with Flip Animation */}
           <motion.div 
-            className="scroll-reveal relative h-[700px] w-full max-w-4xl mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="scroll-reveal relative h-[700px] lg:col-span-2"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
@@ -483,143 +484,59 @@ export default function BookingSection() {
                           </h2>
                         </motion.div>
 
-                        <div className="flex-1 overflow-y-auto space-y-3 px-1">
+                        <div className="flex-1 overflow-y-auto space-y-3">
                           {bookingSuccess && driverData && (
                             <>
-                              {/* Booking Details */}
-                              <div className="bg-white/80 p-4 rounded-xl border border-border shadow-sm">
-                                <h3 className="font-bold mb-3 text-center text-foreground flex items-center justify-center">
-                                  <span className="mr-2">📋</span>
-                                  Booking Details
-                                </h3>
-                                <div className="space-y-2 text-sm">
-                                  <div className="flex justify-between items-center py-1">
-                                    <span className="text-muted-foreground font-medium">Booking ID:</span>
-                                    <span className="font-mono text-primary font-bold bg-primary/10 px-2 py-1 rounded">
-                                      #{bookingSuccess.id.slice(0, 8)}
-                                    </span>
+                              <div className="bg-background/50 p-3 rounded-lg border">
+                                <h3 className="font-semibold mb-2 text-center text-sm">Booking Details</h3>
+                                <div className="text-xs space-y-1">
+                                  <div className="flex justify-between">
+                                    <span>ID:</span>
+                                    <span className="font-mono text-primary">#{bookingSuccess.id.slice(0, 6)}</span>
                                   </div>
-                                  <div className="flex justify-between items-center py-1">
-                                    <span className="text-muted-foreground font-medium">Total Fare:</span>
-                                    <span className="text-primary font-bold text-lg">₹{bookingSuccess.estimatedFare}</span>
-                                  </div>
-                                  <div className="border-t border-border pt-2">
-                                    <div className="flex items-start justify-between">
-                                      <span className="text-muted-foreground font-medium flex items-center">
-                                        <MapPinIcon className="w-3 h-3 mr-1 text-green-500" />
-                                        Route:
-                                      </span>
-                                      <div className="text-right max-w-[150px]">
-                                        <div className="text-xs text-green-600 font-semibold truncate">
-                                          📍 {bookingSuccess.pickupLocation}
-                                        </div>
-                                        <div className="text-xs text-muted-foreground my-1">↓</div>
-                                        <div className="text-xs text-red-600 font-semibold truncate">
-                                          📍 {bookingSuccess.dropLocation}
-                                        </div>
-                                      </div>
-                                    </div>
+                                  <div className="flex justify-between">
+                                    <span>Fare:</span>
+                                    <span className="text-primary font-semibold">₹{bookingSuccess.estimatedFare}</span>
                                   </div>
                                 </div>
                               </div>
                               
-                              {/* Driver Information */}
-                              <div className="bg-gradient-to-r from-blue-50/80 to-green-50/80 p-4 rounded-xl border border-blue-200 shadow-sm">
-                                <h3 className="font-bold mb-3 text-center text-blue-800 flex items-center justify-center">
-                                  <span className="mr-2">🚗</span>
-                                  Your Driver
-                                </h3>
-                                
-                                {/* Driver Profile */}
-                                <div className="flex items-center space-x-3 mb-3 bg-white/50 p-3 rounded-lg">
-                                  <div className="relative">
-                                    <img 
-                                      src={driverData.driverImage} 
-                                      alt={driverData.driverName}
-                                      className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md"
-                                    />
-                                    <div className="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></div>
-                                  </div>
+                              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-3 rounded-lg border border-blue-200">
+                                <h3 className="font-bold mb-2 text-center text-blue-800 text-sm">🚗 Your Driver</h3>
+                                <div className="flex items-center space-x-3 mb-2">
+                                  <img 
+                                    src={driverData.driverImage} 
+                                    alt={driverData.driverName}
+                                    className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-lg"
+                                  />
                                   <div className="flex-1 min-w-0">
-                                    <h4 className="font-bold text-sm text-gray-800 truncate">{driverData.driverName}</h4>
-                                    <div className="flex items-center space-x-1 mt-1">
-                                      <span className="text-yellow-500 text-sm">⭐</span>
-                                      <span className="text-sm font-semibold text-gray-700">{driverData.rating}</span>
-                                      <span className="text-xs text-gray-500">({driverData.experience})</span>
-                                    </div>
-                                    <div className="text-xs text-gray-600 mt-1">
-                                      🗣️ {driverData.languages.slice(0, 2).join(", ")}
+                                    <h4 className="font-bold text-sm truncate">{driverData.driverName}</h4>
+                                    <div className="flex items-center space-x-1">
+                                      <span className="text-yellow-500 text-xs">⭐</span>
+                                      <span className="text-xs">{driverData.rating}</span>
                                     </div>
                                   </div>
                                 </div>
-
-                                {/* Vehicle & Contact Info */}
-                                <div className="space-y-2 text-sm">
-                                  <div className="bg-white/50 p-3 rounded-lg">
-                                    <div className="flex justify-between items-center mb-2">
-                                      <span className="font-semibold text-gray-700">Vehicle Details</span>
-                                      <span className="text-xs bg-green-100 px-2 py-1 rounded-full text-green-800 font-bold">
-                                        {bookingSuccess.vehicleType.toUpperCase()}
-                                      </span>
-                                    </div>
-                                    <div className="space-y-1">
-                                      <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Number:</span>
-                                        <span className="font-mono bg-yellow-100 px-2 py-1 rounded text-sm font-bold text-gray-800">
-                                          {driverData.vehicleNumber}
-                                        </span>
-                                      </div>
-                                      <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Model:</span>
-                                        <span className="text-gray-800 font-medium text-xs">
-                                          {driverData.vehicleModel}
-                                        </span>
-                                      </div>
-                                      <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Color:</span>
-                                        <span className="text-gray-800 font-medium text-xs">
-                                          {driverData.vehicleColor}
-                                        </span>
-                                      </div>
-                                    </div>
+                                <div className="text-xs">
+                                  <div className="flex justify-between mb-1">
+                                    <span>Vehicle:</span>
+                                    <span className="font-mono bg-yellow-100 px-1 py-0.5 rounded">
+                                      {driverData.vehicleNumber}
+                                    </span>
                                   </div>
-                                  
-                                  <div className="bg-white/50 p-3 rounded-lg">
-                                    <div className="flex justify-between items-center">
-                                      <span className="text-gray-700 font-medium flex items-center">
-                                        <PhoneCall className="w-3 h-3 mr-1 text-green-600" />
-                                        Contact:
-                                      </span>
-                                      <a 
-                                        href={`tel:${driverData.driverPhone}`} 
-                                        className="text-blue-600 font-bold hover:underline flex items-center bg-blue-50 px-2 py-1 rounded"
-                                      >
-                                        📞 {driverData.driverPhone}
-                                      </a>
-                                    </div>
+                                  <div className="flex justify-between">
+                                    <span>Contact:</span>
+                                    <a href={`tel:${driverData.driverPhone}`} className="text-blue-600 font-semibold">
+                                      {driverData.driverPhone}
+                                    </a>
                                   </div>
                                 </div>
                               </div>
 
-                              {/* Status Update */}
-                              <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-200 shadow-sm">
+                              <div className="bg-amber-50 p-3 rounded-lg border border-amber-200">
                                 <div className="text-center">
-                                  <h4 className="font-bold text-amber-800 text-sm mb-2 flex items-center justify-center">
-                                    <span className="mr-2">🚗</span>
-                                    Driver is on the way!
-                                    <span className="ml-2">💨</span>
-                                  </h4>
-                                  <div className="space-y-1">
-                                    <p className="text-xs text-amber-700 font-medium">
-                                      🚶‍♂️ {driverData?.driverName} will reach pickup location shortly
-                                    </p>
-                                    <p className="text-xs text-amber-700 font-bold bg-amber-100 px-2 py-1 rounded">
-                                      ⏱️ Estimated arrival: 5-10 minutes
-                                    </p>
-                                    <p className="text-xs text-amber-600">
-                                      📱 Look for {driverData?.vehicleColor} {driverData?.vehicleModel}
-                                    </p>
-                                  </div>
+                                  <h4 className="font-semibold text-amber-800 text-sm mb-1">🚗 Driver is on the way!</h4>
+                                  <p className="text-xs text-amber-700">ETA: 5-10 minutes</p>
                                 </div>
                               </div>
                             </>
@@ -643,106 +560,103 @@ export default function BookingSection() {
             </div>
           </motion.div>
 
-          {/* Information Cards - Below the Booking Form */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
-            {/* Safe & Trusted */}
-            <motion.div
-              className="scroll-reveal"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-6 bg-gradient-to-br from-green-50 to-blue-50 border-green-200 h-full">
-                <div className="text-center mb-4">
-                  <Shield className="w-12 h-12 text-green-600 mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-green-800">Safe & Trusted</h3>
-                </div>
-                <ul className="space-y-3 text-sm text-green-700">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    Verified drivers
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    GPS tracking
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    24/7 support
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    Insurance covered
-                  </li>
-                </ul>
-              </Card>
-            </motion.div>
+          {/* Information Sidebar */}
+          <motion.div 
+            className="space-y-6"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Card className="p-6 bg-gradient-to-br from-green-50 to-blue-50 border-green-200">
+              <div className="text-center mb-4">
+                <Shield className="w-12 h-12 text-green-600 mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-green-800">Safe & Trusted</h3>
+              </div>
+              <ul className="space-y-3 text-sm text-green-700">
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                  Verified drivers
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                  GPS tracking
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                  24/7 support
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                  Insurance covered
+                </li>
+              </ul>
+            </Card>
 
-            {/* Quick & Easy */}
-            <motion.div
-              className="scroll-reveal"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-6 bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200 h-full">
-                <div className="text-center mb-4">
-                  <Clock className="w-12 h-12 text-blue-600 mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-blue-800">Quick & Easy</h3>
-                </div>
-                <ul className="space-y-3 text-sm text-blue-700">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
-                    Instant booking
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
-                    Real-time updates
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
-                    Multiple payment options
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
-                    Transparent pricing
-                  </li>
-                </ul>
-              </Card>
-            </motion.div>
+            <Card className="p-6 bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">
+              <div className="text-center mb-4">
+                <Clock className="w-12 h-12 text-blue-600 mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-blue-800">Quick & Easy</h3>
+              </div>
+              <ul className="space-y-3 text-sm text-blue-700">
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
+                  Instant booking
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
+                  Real-time updates
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
+                  Multiple payment options
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-blue-500" />
+                  Transparent pricing
+                </li>
+              </ul>
+            </Card>
 
-            {/* Need Help */}
-            <motion.div
-              className="scroll-reveal"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-6 bg-gradient-to-br from-orange-50 to-red-50 border-orange-200 h-full">
-                <div className="text-center mb-4">
-                  <Heart className="w-12 h-12 text-orange-600 mx-auto mb-3" />
-                  <h3 className="text-lg font-bold text-orange-800">Need Help?</h3>
+            <Card className="p-6 bg-gradient-to-br from-orange-50 to-red-50 border-orange-200">
+              <div className="text-center mb-4">
+                <Heart className="w-12 h-12 text-orange-600 mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-orange-800">Need Help?</h3>
+              </div>
+              <div className="space-y-3 text-sm text-orange-700">
+                <div className="flex items-center justify-between">
+                  <span>Call Support:</span>
+                  <a href="tel:+911234567890" className="font-semibold text-orange-600 hover:underline">
+                    +91 123 456 7890
+                  </a>
                 </div>
-                <div className="space-y-3 text-sm text-orange-700">
-                  <div className="flex items-center justify-between">
-                    <span>Call Support:</span>
-                    <a href="tel:+911234567890" className="font-semibold text-orange-600 hover:underline">
-                      +91 123 456 7890
-                    </a>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>WhatsApp:</span>
-                    <a href="https://wa.me/911234567890" className="font-semibold text-orange-600 hover:underline">
-                      Chat Now
-                    </a>
-                  </div>
+                <div className="flex items-center justify-between">
+                  <span>WhatsApp:</span>
+                  <a href="https://wa.me/911234567890" className="font-semibold text-orange-600 hover:underline">
+                    Chat Now
+                  </a>
                 </div>
-              </Card>
-            </motion.div>
-          </div>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200">
+              <div className="text-center mb-4">
+                <span className="text-3xl mb-2 block">🎁</span>
+                <h3 className="text-lg font-bold text-yellow-800">Special Offers</h3>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="bg-yellow-100 p-3 rounded-lg border border-yellow-300">
+                  <div className="font-semibold text-yellow-800">First Ride Free!</div>
+                  <div className="text-yellow-700">Up to ₹100 off on your first booking</div>
+                  <div className="text-xs text-yellow-600 mt-1">Code: WELCOME100</div>
+                </div>
+                <div className="bg-orange-100 p-3 rounded-lg border border-orange-300">
+                  <div className="font-semibold text-orange-800">Refer & Earn</div>
+                  <div className="text-yellow-700">Get ₹50 for every friend you refer</div>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </section>

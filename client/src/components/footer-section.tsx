@@ -13,7 +13,7 @@ const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/sahil-mallelwar-439082325/", label: "LinkedIn" },
 ];
 
 export default function FooterSection() {
@@ -82,16 +82,16 @@ export default function FooterSection() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-background/80" data-testid="contact-phone">+91 98765 43210</span>
+                <span className="text-background/80" data-testid="contact-phone">+91 87675 10876</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-background/80" data-testid="contact-email">support@rulerride.com</span>
+                <span className="text-background/80" data-testid="contact-email">smallelw@gitam.in</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <span className="text-background/80" data-testid="contact-address">
-                  Rural Tech Hub, Sector 44, Gurugram, Haryana
+                  Rural Tech Hub, Nagpur, Maharashtra, India
                 </span>
               </div>
             </div>
@@ -101,6 +101,8 @@ export default function FooterSection() {
                 <a 
                   key={index}
                   href={social.href}
+                  target={social.label === "LinkedIn" ? "_blank" : undefined}
+                  rel={social.label === "LinkedIn" ? "noopener noreferrer" : undefined}
                   className="text-background/80 hover:text-primary transition-colors"
                   aria-label={social.label}
                   data-testid={`social-link-${social.label.toLowerCase()}`}

@@ -2,6 +2,10 @@
 
 A MERN stack application for affordable rural ride-sharing services.
 
+## 🚀 Live Demo
+
+**Deployed Application**: [https://ruler-ride-website.vercel.app/](https://ruler-ride-website.vercel.app/)
+
 ## Tech Stack
 
 - **Frontend**: React + TypeScript + Vite + Tailwind CSS
